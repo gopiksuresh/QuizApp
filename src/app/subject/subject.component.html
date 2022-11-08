@@ -1,0 +1,23 @@
+
+
+<div class="container" *ngIf="!showReport">    
+    <div class="row">
+        <div class="col-12">
+            <h3>{{sub?.name}}</h3>
+        </div>
+    </div>
+
+    <app-question [question]="question" (answerSelectedEvent)="onAnswerSelected($event)"></app-question>
+   
+    <div class="row">
+        <div class="col-6 text-left">
+            <button *ngIf="currentIndex!=0" (click)="loadPreviousQuestion()">Previous</button>
+        </div>
+        <div class="col-6 text-right">
+            <button *ngIf="currentIndex<(total-1)" (click)="loadNextQuestion()">Next</button>
+            <button *ngIf="currentIndex==(total-1)" (click)="loadReport()">Report</button>
+        </div>
+    </div>
+</div>
+
+<app-report *ngIf="showReport" [data]="reportData" (hideReportEvent)="hideReport()"></app-report>

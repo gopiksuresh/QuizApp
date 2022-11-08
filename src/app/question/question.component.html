@@ -1,0 +1,16 @@
+<div class="row" *ngIf="question">
+    <div class="col-12">
+        <label>{{question.no}}.{{question.questionText}}</label>
+    </div>
+</div>
+<div class="row" *ngIf="question">
+    <div class="col-12" *ngIf="question.options.length>0">            
+        <ul>
+            <li *ngFor="let ans of question.options; let i = index">
+                <input type="radio" [name]="question.no" (change)="onAnswerSelected(question.no, ans.value)" checked *ngIf="ans.value==question.selectedValue"/>
+                <input type="radio" [name]="question.no" (change)="onAnswerSelected(question.no, ans.value)" *ngIf="ans.value!=question.selectedValue"/>
+              {{ans.text}}
+            </li>
+          </ul>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container" *ngIf="data">
+    <div class="row">
+        <div class="col-12">
+            <h3>{{data.name}}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h5>Total: {{totalCount}}</h5>
+            <h5> Correct: {{correctCount}}, Wrong: {{wrongCount}}</h5>
+            <h5> Skipped: {{skippedCount}}</h5>
+        </div>
+    </div>
+
+    <div class="row" *ngFor="let ques of data.questions; let i = index">
+        <div class="col-12">
+            <div class="container" >
+                <div class="row" >
+                    <div class="col-12">
+                        <label>{{ques.no}}.{{ques.questionText}}</label>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-12" *ngIf="ques.options.length>0">            
+                        <ul>
+                            <li *ngFor="let ans of ques.options; let i = index">
+                                <input type="radio" 
+                                        [name]="ques.no" 
+                                        disabled 
+                                        checked 
+                                        *ngIf="ans.value==getSelectedAnswerId(ques.no)"/>
+                                <input type="radio" 
+                                        [name]="ques.no" 
+                                        disabled 
+                                        *ngIf="ans.value!=getSelectedAnswerId(ques.no)"/>
+                                <label [for]="ques.no"
+                                    [ngClass]="{'correctanswer': ans.value == ques.correctAnswer, 'wronganswer': ans.value == getSelectedAnswerId(ques.no) && ans.value != ques.correctAnswer} ">{{ans.text}}</label>
+                            </li>
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">        
+        <div class="col-12 text-right">
+            <button (click)="hideReport()">Next</button>            
+        </div>
+    </div>
+</div>
